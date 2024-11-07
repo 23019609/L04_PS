@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 // import css file in index.js
 import "./index.css";
@@ -50,17 +50,16 @@ const pizzaData = [
 
 function Header() {
     return (
-        <div className="header">
-            <h1
-                style={{
-                    color: "orange",
-                    fontSize: "48px",
-                    textTransform: "uppercase",
-                }}
-            >
-                Pizza
-            </h1>
-        </div>
+        <h1
+            className="header"
+            style={{
+                color: "orange",
+                fontSize: "48px",
+                textTransform: "uppercase",
+            }}
+        >
+            <strong>Wan Ting's Pizza Co.</strong>
+        </h1>
     );
 }
 
@@ -80,6 +79,7 @@ function Pizza({ name, ingredients, price, photoName, soldOut }) {
                 <h3>{name}</h3>
                 <p>{ingredients}</p>
                 <p>{price}</p>
+                <p className="pizza sold-out">{soldOut}</p>
             </div>
         </div>
     );
@@ -88,7 +88,7 @@ function Pizza({ name, ingredients, price, photoName, soldOut }) {
 function Menu() {
     return (
         <>
-            <h2>Our Menu</h2>
+            <h2 className="menu">Our Menu</h2>
             <div className="pizzas">
                 {pizzaData.map((pizza, i) => (
                     <Pizza
@@ -112,7 +112,7 @@ function App() {
             <Header />
             <Tagline />
             <Menu />
-            <Order />
+            <Footer />
         </div>
     );
 }
@@ -143,16 +143,31 @@ function Tagline() {
     }
 }
 
-function Order() {
-    let msg = "";
-    let button = <button class="btn">Order</button>;
+function Footer() {
     if (currentHour >= 10 && currentHour <= 22) {
-        msg = <footer>We're currently open.</footer>;
-        return [msg, button];
+        return <Order />;
     } else {
-        msg = <footer>Sorry, we're closed.</footer>;
-        return msg;
+        return <footer>Sorry, we're closed.</footer>;
     }
+}
+
+// function Order() {
+//     let msg = "";
+//     let button = <button class="btn">Order</button>;
+//     if (currentHour >= 10 && currentHour <= 22) {
+//         msg = <footer>We're currently open.</footer>;
+//         return [msg, button];
+//     } else {
+//         msg = <footer>Sorry, we're closed.</footer>;
+//         return msg;
+//     }
+// }
+
+function Order() {
+    return [
+        <footer>We're currently open.</footer>,
+        <button class="btn">Order</button>,
+    ];
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
